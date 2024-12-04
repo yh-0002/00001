@@ -11,23 +11,23 @@ async def start(update: Update, context: CallbackContext) -> None:
     await update.message.reply_text('請輸入要查詢的股價代碼')
 
 async def echo(update: Update, context: CallbackContext) -> None:
-    user_message = update.message.text.lower()
+    y = update.message.text.lower()
     url='https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL'
     re=res.get(url)
     data=json.loads(re.text)
     df=pd.DataFrame(data)
-    a = df[df['Code'] == user_message]['OpeningPrice']
-    b = df[df['Code'] == user_message]['HighestPrice']
-    c = df[df['Code'] == user_message]['LowestPrice']
-    d = df[df['Code'] == user_message]['ClosingPrice']
-    e = df[df['Code'] == user_message]['Change']
-    f = df[df['Code'] == user_message]['Transaction']
-    x = df[df['Code'] == user_message]['Name']
+    a = df[df['Code'] == y]['OpeningPrice']
+    b = df[df['Code'] == y]['HighestPrice']
+    c = df[df['Code'] == y]['LowestPrice']
+    d = df[df['Code'] == y]['ClosingPrice']
+    e = df[df['Code'] == y]['Change']
+    f = df[df['Code'] == y]['Transaction']
+    x = df[df['Code'] == y]['Name']
 
     if x.empty:
-        print(f"股票代號 {user_message} 不存在或沒有資料")
+        print(f"股票代號 {y} 不存在或沒有資料")
     else:
-        print(f"{user_message} {x.values[0]}\n
+        print(f"{y} {x.values[0]}\n
         開盤價為: {a.values[0]}\n
         最高價為: {b.values[0]}\n
         最低價為: {c.values[0]}\n
