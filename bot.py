@@ -5,17 +5,34 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 TOKEN = '7913141683:AAHuJXDJ_uyJQKAGnsP0neeVgei1SOMLoNI'
 
 async def start(update: Update, context: CallbackContext) -> None:
-    await update.message.reply_text('Hello! Send me a message and I will reply with a specific response!')
+    await update.message.reply_text('請輸入要查詢的股價代碼')
 
 async def echo(update: Update, context: CallbackContext) -> None:
     user_message = update.message.text.lower()
-    if 'hello' in user_message:
-        response = 'Hi there! How can I help you today?'
-    elif 'bye' in user_message:
-        response = 'Goodbye! Have a great day!'
+    url='https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL'
+    re=res.get(url)
+    data=json.loads(re.text)
+    df=pd.DataFrame(data)
+    a = df[df['Code'] == user_message]['OpeningPrice']
+    b = df[df['Code'] == user_message]['HighestPrice']
+    c = df[df['Code'] == user_message]['LowestPrice']
+    d = df[df['Code'] == user_message]['ClosingPrice']
+    e = df[df['Code'] == user_message]['Change']
+    f = df[df['Code'] == user_message]['Transaction']
+    x = df[df['Code'] == user_message]['Name']
+
+    if x.empty:
+      print(f"股票代號 {user_message} 不存在或沒有資料")
     else:
-        response = 'I received your message!'
-    
+      print(f"{user_message} {x.values[0]}")
+      print(f"開盤價為: {a.values[0]}")
+      print(f"最高價為: {b.values[0]}")
+      print(f"最低價為: {c.values[0]}")
+      print(f"收盤價為: {d.values[0]}")
+      print(f"漲跌差為: {e.values[0]}")
+      print(f"成交量為: {f.values[0]}")
+
+   
     # 打印收到的消息和回复到控制台
     print(f"Received message: {update.message.text}")
     print(f"Response: {response}")
