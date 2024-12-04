@@ -1,5 +1,8 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
+import requests as res      
+import json                  
+import pandas as pd
 
 # 替换为你的 Bot Token
 TOKEN = '7913141683:AAHuJXDJ_uyJQKAGnsP0neeVgei1SOMLoNI'
@@ -22,15 +25,15 @@ async def echo(update: Update, context: CallbackContext) -> None:
     x = df[df['Code'] == user_message]['Name']
 
     if x.empty:
-      response = (f"股票代號 {user_message} 不存在或沒有資料")
+        print(f"股票代號 {user_message} 不存在或沒有資料")
     else:
-      response = (f"{user_message} {x.values[0]}")
-      #print(f"開盤價為: {a.values[0]}")
-      #print(f"最高價為: {b.values[0]}")
-      #print(f"最低價為: {c.values[0]}")
-      #print(f"收盤價為: {d.values[0]}")
-      #print(f"漲跌差為: {e.values[0]}")
-      #print(f"成交量為: {f.values[0]}")
+        print(f"{y} {x.values[0]}\n
+        開盤價為: {a.values[0]}\n
+        最高價為: {b.values[0]}\n
+        最低價為: {c.values[0]}\n
+        收盤價為: {d.values[0]}\n
+        漲跌差為: {e.values[0]}\n
+        成交量為: {f.values[0]}")
 
    
     # 打印收到的消息和回复到控制台
