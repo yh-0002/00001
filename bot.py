@@ -25,9 +25,9 @@ async def echo(update: Update, context: CallbackContext) -> None:
     x = df[df['Code'] == user_message]['Name']
 
     if x.empty:
-        print(f"股票代號 {user_message} 不存在或沒有資料")
+        response = (f"股票代號 {user_message} 不存在或沒有資料")
     else:
-        print(f"{y} {x.values[0]}\n
+        response = (f"{user_message} {x.values[0]}\n
         開盤價為: {a.values[0]}\n
         最高價為: {b.values[0]}\n
         最低價為: {c.values[0]}\n
